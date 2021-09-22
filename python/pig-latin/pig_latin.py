@@ -1,21 +1,27 @@
 def translate(text):
     vowel = ["a", "i", "u", "e", "o"]
-    text_list = list(text)
+    words = text.split()
+    word_list = [list(x) for x in words]
 
-    isConsonant = [x not in vowel for x in text_list]
-    for consonant in isConsonant:
-        if not consonant:
-            break
-        if text_list[0:2] == ["q", "u"]:
-            del text_list[0:2]
-            text_list.append("qu")
-        elif text_list[0:2] == ["x", "r"]:
-            break
-        elif text_list[0:2] == ["y", "t"]:
-            break
-        elif text_list[0] == "y" and text_list[1] not in vowel:
-            break
-        else:
-            text_list.append(text_list.pop(0))
+    translate_word = ""
 
-    return "".join(text_list) + "ay"
+    for word in word_list:
+        isConsonant = [x not in vowel for x in word]
+        for consonant in isConsonant:
+            if not consonant:
+                break
+            if word[0:2] == ["q", "u"]:
+                del word[0:2]
+                word.append("qu")
+            elif word[0:2] == ["x", "r"]:
+                break
+            elif word[0:2] == ["y", "t"]:
+                break
+            elif word[0] == "y" and word[1] not in vowel:
+                break
+            else:
+                word.append(word.pop(0))
+
+        translate_word += "".join(word) + "ay "
+
+    return translate_word.rstrip()
