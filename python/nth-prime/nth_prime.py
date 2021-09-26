@@ -10,10 +10,10 @@ def prime_range(number):
     prime_numbers = [2]
 
     while len(prime_numbers) != number:
-        for n in range(2, checked_number):
+        for n in prime_numbers:
             if checked_number % n == 0:
                 break
-            if checked_number-1 == n:
+            if n == prime_numbers[-1]:
                 prime_numbers.append(checked_number)
 
         checked_number += 1
