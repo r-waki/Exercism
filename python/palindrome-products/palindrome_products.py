@@ -21,17 +21,18 @@ def make_palindrome_number_and_list(min_factor, max_factor):
             palindrome_number.append(number[0])
             palindrome.append(number)
 
-    return palindrome_number, palindrome
+    if palindrome_number:
+        min_number = min(palindrome_number)
+        max_number = max(palindrome_number)
+    else:
+        min_number = max_number = None
+
+    return min_number, max_number, palindrome
 
 
 @validation_check
 def largest(min_factor, max_factor):
-    number_list, factor_list = make_palindrome_number_and_list(min_factor, max_factor)
-
-    if number_list:
-        max_number = max(number_list)
-    else:
-        max_number = None
+    min_number, max_number, factor_list = make_palindrome_number_and_list(min_factor, max_factor)
 
     palindrome_factor = []
     for x in factor_list:
@@ -43,12 +44,7 @@ def largest(min_factor, max_factor):
 
 @validation_check
 def smallest(min_factor, max_factor):
-    number_list, factor_list = make_palindrome_number_and_list(min_factor, max_factor)
-
-    if number_list:
-        min_number = min(number_list)
-    else:
-        min_number = None
+    min_number, max_number, factor_list = make_palindrome_number_and_list(min_factor, max_factor)
 
     palindrome_factor = []
     for x in factor_list:
