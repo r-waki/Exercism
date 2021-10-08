@@ -12,16 +12,10 @@ def validation_check(func):
 def make_palindrome_number_and_list(min_factor, max_factor):
     max_factor += 1
     factors = itertools.combinations_with_replacement(range(min_factor, max_factor), 2)
-    mulitplication = [[x * y, x, y] for x, y in factors]
-    palindrome_number = []
-    palindrome = []
+    palindrome = [[x * y, x, y] for x, y in factors if str(x * y) == str(x * y)[::-1]]
 
-    for number in mulitplication:
-        if str(number[0]) == str(number[0])[::-1]:
-            palindrome_number.append(number[0])
-            palindrome.append(number)
-
-    if palindrome_number:
+    if palindrome:
+        palindrome_number = [number[0] for number in palindrome]
         min_number = min(palindrome_number)
         max_number = max(palindrome_number)
     else:
