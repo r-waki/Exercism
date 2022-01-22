@@ -7,8 +7,7 @@ class Garden:
         self.first_half_row = garden[0]
         self.second_half_row = garden[1]
 
-        students.sort()
-        self.students = students
+        self.students = sorted(students)
 
     def plants(self, student):
         index = self.students.index(student)
