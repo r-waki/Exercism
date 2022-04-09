@@ -1,46 +1,29 @@
 import itertools
-import numpy as np
 
 
 def rectangles(strings):
 
-    # 縦線の取りうる組み合わせを特定
-    row_volume = len(strings)
-    vertical_combinations = itertools.combinations(range(0, row_volume), 2)
+    def vertex_list(strings):
+        return [(x, y) for y, row_str in enumerate(strings) for x, e in enumerate(row_str) if e == "+"]
 
-    # 任意の列の頂点となる + 座標位置を特定
-    column_number = 0
-    vertex_coordinate = []
-    for row in strings:
-        vertex_coordinate.append([i for i, e in enumerate(row) if e == "+"])
-        column_number = len(row)
+    def is_rectangle(vertex):
+        top_left, bottom_left, top_right, bottom_right = sorted(vertex)
+        return all([
+          h_check(strings, top_left, top_right),
+          h_check(strings, bottom_left, bottom_right),
+          v_check(strings, top_left, bottom_left),
+          v_check(strings, top_right, bottom_right)
+        ])
 
-    # 縦と横を入れ替えたリストを作成する
-    tr = []
-    for i in range(column_number):
-        tr_row = []
-        for vector in strings:
-            tr_row.append(vector[i])
-        tr.append(tr_row)
+    def h_check(strings, s, t):
+        x1, y1 = s
+        x2, y2 = t
+        return y1 == y2 and x1 < x2 and all([strings[y1][i] in "+-" for i in range(x1, x2 + 1)])
 
+    def v_check(strings, s, t):
+        x1, y1 = s
+        x2, y2 = t
+        return x1 == x2 and y1 < y2 and all([strings[j][x1] in "+|" for j in range(y1, y2 + 1)])
 
-    # 縦線の組み合わせから、同じ位置に + があれば一つ長方形ができる
-    square = 0
-    for v in vertical_combinations:
-        row_a = set(itertools.combinations(vertex_coordinate[v[0]], 2))
-        row_b = set(itertools.combinations(vertex_coordinate[v[1]], 2))
-
-        ab = (row_a & row_b)
-
-        if v[1] - v[0] > 1:
-
-            for x in list(ab):
-                column_a = "".join(tr[x[0]])
-                column_b = "".join(tr[x[1]])
-                if all((y == "|" or y == "+") for y in column_a[v[0]+1:v[1]]) and\
-                   all((y == "|" or y == "+") for y in column_b[v[0]+1:v[1]]):
-                    square = square + 1
-        else:
-            square = square + len(ab)
-
-    return square
+    SUM = sum([1 for vt in itertools.combinations(vertex_list(strings), 4) if is_rectangle(vt)])
+    return SUM
