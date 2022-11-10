@@ -13,25 +13,32 @@ You can learn more here: https://en.wikipedia.org/wiki/Enumerated_type
 
 # Possible sublist categories.
 # Change the values as you see fit.
-SUBLIST = None
-SUPERLIST = None
-EQUAL = None
-UNEQUAL = None
+SUBLIST = 1
+SUPERLIST = 2
+EQUAL = 3
+UNEQUAL = 4
 
 
 def sublist(list_one, list_two):
 
-    return None
-#    if not list_one and not list_two:
-#        global EQUAL
-#        return EQUAL
-#    elif not list_one and list_two:
-#        return SUBLIST
-#    elif list_one and not list_two:
-#        SUPERLIST = list_one
-#        return SUPERLIST
-#
-#    if list_one == list_two:
-#        EQUAL = list_one
-#        return EQUAL
-#
+    if len(list_one) == 0 and len(list_two) != 0:
+        return 1
+    elif len(list_one) != 0 and len(list_two) == 0:
+        return 2
+
+    one = "".join([str(x) for x in list_one])
+    two = "".join([str(x) for x in list_two])
+
+    if one == two:
+        str_one = str(sum(((x * 10 ** i) for i, x in enumerate(list_one))))
+        str_two = str(sum(((x * 10 ** i) for i, x in enumerate(list_two))))
+        if str_one in str_two:
+            return 3
+        else:
+            return 4
+    elif one in two:
+        return 1
+    elif two in one:
+        return 2
+    else:
+        return 4
