@@ -1,53 +1,36 @@
-import re
-
 def answer(question):
     question = question.replace('?', '')
     question = question.replace(' by', '')
-    question_sentence = [word for word in question.split()]
-    question_sentence = question_sentence[2:]
+    question = [word for word in question.split()]
+    question = question[2:]
 
-    for calclate()
+    if not question:
+        raise ValueError("no questions")
 
+    if len(question) == 2:
+        raise ValueError("invalid statement")
 
+    arithmetic_operations = ["plus", "minus", "multiplied", "divided"]
 
-    if len(question_sentence) == 1:
-        return int(question_sentence[0])
-    elif len(question_sentence) == 3 and question_sentence[1] == "plus":
-        return int(question_sentence[0]) + int(question_sentence[2])
-    elif len(question_sentence) == 3 and question_sentence[1] == "minus":
-        return int(question_sentence[0]) - int(question_sentence[2])
-    elif len(question_sentence) == 4 and question_sentence[1:3] == ["multiplied", "by"]:
-        return int(question_sentence[0]) * int(question_sentence[3])
-    elif len(question_sentence) == 4 and question_sentence[1:3] == ["divided", "by"]:
-        return int(question_sentence[0]) / int(question_sentence[3])
+    for i, q in enumerate(question):
+        if i == 0:
+            ans = int(q)
 
-def is_number(n):
-    re.compile(r"\d")
-    if type(n) != int:
-        raise ValueError("not the number!!")
-    return True
+        elif i % 2 == 1 and q not in arithmetic_operations:
+            raise ValueError("not arithmetic operations")
 
-def is_arithmetic_operations(n):
-    arithmetic_operations = set("plus", "minus", "multiplied", "divided")
+        elif i % 2 == 1 and q in arithmetic_operations:
+            operation = q
 
-    if arithmetic_operations.disjoined(n):
-        raise ValueError("not the arithmetic operations")
-    return True
+        elif i % 2 == 0:
 
-def calclate(question):
+            if operation == "plus":
+                ans = ans + int(q)
+            elif operation == "minus":
+                ans = ans - int(q)
+            elif operation == "multiplied":
+                ans = ans * int(q)
+            elif operation == "divided":
+                ans = ans / int(q)
 
-    if len(question) == 1:
-        return int(question[0])
-
-    is_number(question[0])
-    is_number(question[2])
-    is_arithmetic_operations(question[1])
-
-    if operation == "plus":
-        return int(x) + int(y)
-    elif operation == "minus":
-        return int(x) - int(y)
-    elif operation == "multiplied":
-        return int(x) * int(y)
-    else:
-        return int(x) / int(y)
+    return ans
