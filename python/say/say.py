@@ -47,6 +47,10 @@ def say(number):
     return (s1 + s2 + s3 + s4 + s5).rstrip(" ")
 
 
+def trans_single_digit(num):
+    return mapping_words[num]
+
+
 def trans_ty(num):
     for i in range(100, 10, -10):
         digit = num // i
@@ -61,16 +65,14 @@ def trans_ty(num):
 
 def trans_handred(num):
     for i in range(1000, 0, -100):
-        digit = num // i
-        if digit != 0:
+        if num // i != 0:
             return num-i, mapping_words[i/100] + " hundred" + " "
     return num, ""
 
 
 def trans_thousand(num):
     for i in range(1000000, 0, -1000):
-        digit = num // i
-        if digit != 0:
+        if num // i != 0:
             shift_num = i // 1000
             shift_num, s1 = trans_handred(shift_num)
             shift_num, s2 = trans_ty(shift_num)
@@ -80,8 +82,7 @@ def trans_thousand(num):
 
 def trans_million(num):
     for i in range(1000000000, 0, -1000000):
-        digit = num // i
-        if digit != 0:
+        if num // i != 0:
             shift_num = i // 1000000
             shift_num, s1 = trans_handred(shift_num)
             shift_num, s2 = trans_ty(shift_num)
@@ -91,14 +92,9 @@ def trans_million(num):
 
 def trans_billion(num):
     for i in range(1000000000000, 0, -1000000000):
-        digit = num // i
-        if digit != 0:
+        if num // i != 0:
             shift_num = i // 1000000000
             shift_num, s1 = trans_handred(shift_num)
             shift_num, s2 = trans_ty(shift_num)
             return num-i, s1 + s2 + "billion" + " "
     return num, ""
-
-
-def trans_single_digit(num):
-    return mapping_words[num]
