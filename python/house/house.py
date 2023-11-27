@@ -15,23 +15,27 @@ sentence_parts = [
 
 
 def recite(start_verse, end_verse):
-    target_parts = sentence_parts[-1 * start_verse:]
+    if start_verse == end_verse :
+        return [make_sentence(start_verse)]
+    else:
+        sentence_list = []
+        for i in range(start_verse, end_verse+1):
+            sentence_list.append(make_sentence(i))
+        return sentence_list
+
+
+def make_sentence(verse):
+
+    target_parts = sentence_parts[-1 * verse:]
     first_part = target_parts[0]
     first_part = first_part.split()
     first_part[0], first_part[1] = "This", "is"
+    if verse == 1 or verse == 11 :
+        first_part.pop(2)
     first_sentence = " ".join(first_part)
 
     latter_sentence = ""
     for part in target_parts[1:]:
         latter_sentence = latter_sentence + " " + part
 
-    sentence_list = []
-    sentence_list.append(first_sentence + latter_sentence)
-    return sentence_list
-
-    target_parts = sentence_parts[-1 * start_verse:]
-
-    sentence = ""
-    for part in target_parts:
-        sentence = sentence + " " + part
-
+    return first_sentence + latter_sentence
