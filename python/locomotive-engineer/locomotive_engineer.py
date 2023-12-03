@@ -22,13 +22,8 @@ def fix_list_of_wagons(each_wagons_id, missing_wagons):
     :parm missing_wagons: list - the list of missing wagons.
     :return: list - list of wagons.
     """
-    laterList = []
-
-    for i, x in enumerate(each_wagons_id):
-        if x != 1:
-            laterList.append(x)
-        else :
-            return [1] + missing_wagons + each_wagons_id[i+1:] + laterList
+    i = each_wagons_id.index(1)
+    return [1] + missing_wagons + each_wagons_id[i+1:] + each_wagons_id[:i]
 
 
 def add_missing_stops():
