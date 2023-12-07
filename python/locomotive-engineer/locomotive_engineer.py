@@ -25,16 +25,16 @@ def fix_list_of_wagons(each_wagons_id, missing_wagons):
     i = each_wagons_id.index(1)
     return [1] + missing_wagons + each_wagons_id[i+1:] + each_wagons_id[:i]
 
-
-def add_missing_stops():
+def add_missing_stops(route, **stops):
     """Add missing stops to route dict.
 
     :param route: dict - the dict of routing information.
     :param: arbitrary number of stops.
     :return: dict - updated route dictionary.
     """
-    pass
+    route["stops"] = [ station for station in stops.values() ]
 
+    return route
 
 def extend_route_information(route, more_route_information):
     """Extend route information with more_route_information.
@@ -43,7 +43,7 @@ def extend_route_information(route, more_route_information):
     :param more_route_information: dict -  extra route information.
     :return: dict - extended route information.
     """
-    pass
+    return {**route ,**more_route_information}
 
 
 def fix_wagon_depot(wagons_rows):
@@ -52,4 +52,11 @@ def fix_wagon_depot(wagons_rows):
     :param wagons_rows: list[list[tuple]] - the list of rows of wagons.
     :return: list[list[tuple]] - list of rows of wagons.
     """
-    pass
+    firstRow, secondRow, thirdRow = wagons_rows
+
+    correctRow = []
+
+    for i in range(0,3):
+        correctRow.append([firstRow[i], secondRow[i], thirdRow[i]])
+    
+    return correctRow
