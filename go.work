@@ -1,6 +1,7 @@
 go 1.23.2
 
 use (
+	./go/bird-watcher
 	./go/blackjack
 	./go/need-for-speed
 )
